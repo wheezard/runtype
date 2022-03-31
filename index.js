@@ -22,6 +22,10 @@ function betterIsNaN(val) {
 function checkType(val, type) {
   if (!Array.isArray(type)) type = [ type ]
 
+  /* if (type.filter(m => Array.isArray(m)).length > 1) {
+    throw new SyntaxError(`Type array can only include one array element`) // Engrish
+  } */
+
   let checked = type.map(miniType => {
     if (typeof miniType == 'function') {
       let res = miniType(val, { betterTypeof });
@@ -34,6 +38,9 @@ function checkType(val, type) {
 
     } else if (typeof miniType == 'string') {
       let isDefault = false;
+      function assertStringTypes(type) {
+        
+      }
       let res = (function(){
         switch (miniType) {
           case 'any': return true
@@ -44,23 +51,30 @@ function checkType(val, type) {
           case 'number': return typeof val == 'number'
           case 'object': return typeof val == 'object' && val !== null
           case 'function': return typeof val == 'function'
+          case 'bigint': return typeof val == 'bigint'
+          case 'symbol': return typeof val == 'symbol'
+          case 'undefined': return typeof val == 'undefined'
           case 'nullish': return !val || betterIsNaN(val)
 
           case 'infinite': return val == Infinity || val == -Infinity
-          case 'realnumber': return !betterIsNaN(val) && val != Infinity && val != -Infinity // type is number AND it is not NaN AND it is finite
-          case 'integer': return typeof val == 'number' && Math.floor(val) == val
+          case 'realnumber': return typeof val == 'number' && !betterIsNaN(val) && val != Infinity && val != -Infinity // type is number AND it is not NaN AND it is finite
+          case 'integer': return typeof val == 'number' && !betterIsNaN(val) && Math.floor(val) == val && val != Infinity && val != -Infinity
 
 
+          // The reason we dont just flip the condition around is because we don't want to match with any string that begins with a bang
           case '!string': return typeof val != 'string'
           case '!boolean': return typeof val != 'boolean'
           case '!number': return typeof val != 'number'
           case '!object': return typeof val != 'object' || val === null
           case '!function': return typeof val != 'function'
+          case '!bigint': return typeof val != 'bigint'
+          case '!symbol': return typeof val != 'symbol'
+          case '!undefined': return typeof val != 'undefined'
           case '!nullish': return !!val && !betterIsNaN(val)
         
           case '!infinite': return val != Infinity && val != -Infinity
-          case '!realnumber': return betterIsNaN(val) || val == Infinity || val == -Infinity
-          case '!integer': return typeof val == 'number' && Math.floor(val) != val
+          case '!realnumber': return typeof val == 'number' && (betterIsNaN(val) || val == Infinity || val == -Infinity)
+          case '!integer': return typeof val == 'number' && (Math.floor(val) != val || val == Infinity || val == -Infinity)
 
           default: {
             if (miniType.startsWith('"') && miniType.endsWith('"'))  miniType = miniType.slice(1, -1)
@@ -149,7 +163,7 @@ function checkType(val, type) {
           }
         }
         Object.keys(miniType).forEach(key => {
-          if (!key.endsWith('?') && !usedKeys.includes(key)) {
+          if (key != '*' && !key.endsWith('?') && !usedKeys.includes(key)) {
             addToRes(`The key "${key}" is required but missing from this object.`)
           }
         })

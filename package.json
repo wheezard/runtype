@@ -6,6 +6,13 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "keywords": [
+    "runtime types",
+    "types",
+    "schema",
+    "type-checking",
+    "type-checker"
+  ],
   "author": "wheezard",
   "license": "MIT",
   "types": "./index"
