@@ -1,6 +1,6 @@
 type BetterTypeof = (val: any) => "string" | "number" | "bigint" | "boolean" | "symbol" | "undefined" | "object" | "function" | "null"
 
-type StringTypeDef = 'string' | 'boolean' | 'object' | 'number' | 'function' | 'nullish' | 'infinite' | 'realnumber' | 'integer'
+type StringTypeDef = 'string' | 'boolean' | 'object' | 'number' | 'function' | "bigint" | "symbol" | 'nullish' | 'infinite' | 'realnumber' | 'integer'
 
 type SingleTypeDef = 'any' | '*' | StringTypeDef | `!${StringTypeDef}` | `"${string}"` | number |
   { [key: string]: TypeDef, "*"?: TypeDef } |

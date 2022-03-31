@@ -87,7 +87,7 @@ If it's a `string`:
   
   A type can also be inverted if you put a bang (!) before its name.
   
-  Inverted types are the opposite of their normal counterpart, except for `realnumber` and `integer` - these two still check if a value is a number.
+  Inverted types are the opposite of their normal counterpart, except for `realnumber` and `integer` - these two still only match numbers.
 
 - If it is not one of the following, it is a literal string and runtype just checks for equality.
 
