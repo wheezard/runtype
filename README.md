@@ -43,8 +43,7 @@ There were multiple problems with this object:
         Value "61 y.o." (type string) is not assignable to type number.
     - Key "picture" is not valid:
         Value "[object Object]" (type object) is not assignable to type string.
-    - Key "description" is not valid:
-        Value "null" (type null) is not assignable to type string.
+    - The key "description" is required but missing from this object.
 */
 ```
 
