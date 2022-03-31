@@ -1,0 +1,12 @@
+{
+  "name": "runtype",
+  "version": "1.0.0",
+  "description": "Runtime type-checking of any value in javascript",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "wheezard",
+  "license": "MIT",
+  "types": "./index"
+}
