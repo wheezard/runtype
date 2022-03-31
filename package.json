@@ -15,5 +15,6 @@
   ],
   "author": "wheezard",
   "license": "MIT",
+  "repository": "https://github.com/wheezard/runtype",
   "types": "./index"
 }
