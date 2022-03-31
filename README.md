@@ -55,7 +55,9 @@ Checks the `value` against the `schema` and returns either `true` if `value` mat
 
 ### Schema
 
-Schema is always an array of different types, if schema is not an array, it is assumed to be an array with one value. If any of the items of the schema array matches the value, the value is considered valid. That means that schema's array works like an "or".
+Schema is always an array of different types, if schema is not an array, it is converted to an array with one value.
+
+If any of the items of the schema's array matches the value, the value is considered valid. That means that schema's array works like an "or".
 
 ```js
 runType({
@@ -144,3 +146,27 @@ runType({
   'optional?': 'any'
 }) // -> true
 ```
+
+If the type is a function, it will get called with:
+
+- `val: any` - the value to check
+
+- `betterTypeof: function` - like the `typeof` operator, but returns `"null"` if the value is null
+
+It must return:
+
+- Either `true`, if the check was successful, or a string with an error.
+
+- If it returns anything else, that will be considered an error and will generate a generic error message:
+  
+  `Type assertion by function failed on value "${val}" (type ${better typeof val}): ${return value from the function}.`
+
+```js
+runType({
+  value: -15
+}, {
+  value: (v) => v < 0 ? `Value cannot be less than zero` : true
+})
+```
+
+If the type is anything else, it will just get strictly compared (`===`) to the `value`.
