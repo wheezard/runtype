@@ -21,8 +21,7 @@ let badPerson = {
   name: 'no',
   relativeLocation: 50,
   age: '61 y.o.',
-  picture: { url: '/404.html' },
-  description: null
+  picture: { url: '/404.html' }
 }
 
 const schema = {
@@ -146,19 +145,3 @@ runType({
   'optional?': 'any'
 }) // -> true
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
