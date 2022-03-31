@@ -1,5 +1,5 @@
 {
-  "name": "runtype",
+  "name": "runtype-check",
   "version": "1.0.0",
   "description": "Runtime type-checking of any value in javascript",
   "main": "index.js",
