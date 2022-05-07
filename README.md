@@ -155,7 +155,9 @@ If the type is a function, it will get called with:
 
 It must return:
 
-- Either `true`, if the check was successful, or a string with an error.
+- Either `true`, if the check was successful
+
+- Or a string with an error.
 
 - If it returns anything else, that will be considered an error and will generate a generic error message:
   

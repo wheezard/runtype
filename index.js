@@ -201,4 +201,5 @@ function checkType(val, type) {
   return res;
 }
 
+checkType.default = checkType;
 module.exports = checkType;
