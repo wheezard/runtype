@@ -28,7 +28,7 @@ function checkType(val, type) {
 
   let checked = type.map(miniType => {
     if (typeof miniType == 'function') {
-      let res = miniType(val, { betterTypeof });
+      let res = miniType(val, betterTypeof);
       if (res !== true) {
         res = typeof res == 'string' ?
           res :
@@ -38,9 +38,6 @@ function checkType(val, type) {
 
     } else if (typeof miniType == 'string') {
       let isDefault = false;
-      function assertStringTypes(type) {
-        
-      }
       let res = (function(){
         switch (miniType) {
           case 'any': return true
@@ -71,7 +68,7 @@ function checkType(val, type) {
           case '!symbol': return typeof val != 'symbol'
           case '!undefined': return typeof val != 'undefined'
           case '!nullish': return !!val && !betterIsNaN(val)
-        
+
           case '!infinite': return val != Infinity && val != -Infinity
           case '!realnumber': return typeof val == 'number' && (betterIsNaN(val) || val == Infinity || val == -Infinity)
           case '!integer': return typeof val == 'number' && (Math.floor(val) != val || val == Infinity || val == -Infinity)
@@ -79,7 +76,7 @@ function checkType(val, type) {
           default: {
             if (miniType.startsWith('"') && miniType.endsWith('"'))  miniType = miniType.slice(1, -1)
             isDefault = true;
-    
+
             return val === miniType;
           }
         }
@@ -122,7 +119,7 @@ function checkType(val, type) {
             res = `The array [${joinTheArray(val, 0, ', ')}] has invalid items:\n  - ${joinTheArray(mapped.filter(v => v !== true), 1, '\n  - ')}`
           }
           return res;
-          
+
         } else return `Value "${val}" (type ${betterTypeof(val)}) is not an array.`
 
       } else if (betterTypeof(val) == 'object') {
@@ -177,7 +174,7 @@ function checkType(val, type) {
         res = `Value "${val}" (type ${betterTypeof(val)}) is not equal to "NaN" (type number).`
       }
       return res;
-    
+
     } else {
       let res = val === miniType;
       if (!res) {
